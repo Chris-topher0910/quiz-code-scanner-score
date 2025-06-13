@@ -1,11 +1,174 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { QrCodeScanner } from "@/components/QrCodeScanner";
+import { QuizInterface } from "@/components/QuizInterface";
+import { ScoreDisplay } from "@/components/ScoreDisplay";
+import { UserForm } from "@/components/UserForm";
+import { Trophy, QrCode, User } from "lucide-react";
+
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  points: number;
+}
+
+export interface UserData {
+  name: string;
+  email: string;
+}
+
+export interface QuizResult {
+  questionId: string;
+  question: string;
+  userAnswer: number;
+  correctAnswer: number;
+  points: number;
+  isCorrect: boolean;
+}
 
 const Index = () => {
+  const [currentStep, setCurrentStep] = useState<'user' | 'scanner' | 'quiz' | 'results'>('user');
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
+  const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
+  const [totalScore, setTotalScore] = useState(0);
+
+  const handleUserSubmit = (user: UserData) => {
+    setUserData(user);
+    setCurrentStep('scanner');
+  };
+
+  const handleQrCodeScanned = (questionId: string) => {
+    // Buscar pergunta baseada no ID do QR Code
+    const question = getQuestionById(questionId);
+    if (question) {
+      setCurrentQuestion(question);
+      setCurrentStep('quiz');
+    }
+  };
+
+  const handleQuizAnswer = (answer: number) => {
+    if (!currentQuestion) return;
+
+    const isCorrect = answer === currentQuestion.correctAnswer;
+    const points = isCorrect ? currentQuestion.points : 0;
+    
+    const result: QuizResult = {
+      questionId: currentQuestion.id,
+      question: currentQuestion.question,
+      userAnswer: answer,
+      correctAnswer: currentQuestion.correctAnswer,
+      points: points,
+      isCorrect: isCorrect
+    };
+
+    setQuizResults(prev => [...prev, result]);
+    setTotalScore(prev => prev + points);
+    setCurrentStep('results');
+  };
+
+  const resetQuiz = () => {
+    setCurrentStep('scanner');
+    setCurrentQuestion(null);
+  };
+
+  const resetApp = () => {
+    setCurrentStep('user');
+    setUserData(null);
+    setCurrentQuestion(null);
+    setQuizResults([]);
+    setTotalScore(0);
+  };
+
+  // Função mock para buscar perguntas - em um app real, isso viria de uma API
+  const getQuestionById = (id: string): QuizQuestion | null => {
+    const questions: QuizQuestion[] = [
+      {
+        id: '1',
+        question: 'Qual é a capital do Brasil?',
+        options: ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador'],
+        correctAnswer: 2,
+        points: 10
+      },
+      {
+        id: '2',
+        question: 'Quanto é 2 + 2?',
+        options: ['3', '4', '5', '6'],
+        correctAnswer: 1,
+        points: 5
+      },
+      {
+        id: '3',
+        question: 'Qual é o maior planeta do sistema solar?',
+        options: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+        correctAnswer: 2,
+        points: 15
+      }
+    ];
+    
+    return questions.find(q => q.id === id) || null;
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+      <div className="max-w-md mx-auto">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <QrCode className="h-8 w-8 text-indigo-600" />
+            <h1 className="text-2xl font-bold text-gray-900">Quiz Scanner</h1>
+          </div>
+          <p className="text-gray-600">Escaneie QR Codes e responda perguntas para ganhar pontos!</p>
+        </div>
+
+        {currentStep === 'user' && (
+          <UserForm onSubmit={handleUserSubmit} />
+        )}
+
+        {currentStep === 'scanner' && userData && (
+          <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="h-5 w-5" />
+                  Olá, {userData.name}!
+                </CardTitle>
+                <CardDescription>
+                  Escaneie um QR Code para começar o quiz
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <QrCodeScanner onScan={handleQrCodeScanned} />
+          </div>
+        )}
+
+        {currentStep === 'quiz' && currentQuestion && (
+          <QuizInterface
+            question={currentQuestion}
+            onAnswer={handleQuizAnswer}
+          />
+        )}
+
+        {currentStep === 'results' && (
+          <div className="space-y-4">
+            <ScoreDisplay
+              results={quizResults}
+              totalScore={totalScore}
+              userName={userData?.name || ''}
+            />
+            <div className="flex gap-2">
+              <Button onClick={resetQuiz} variant="outline" className="flex-1">
+                Escanear Novo QR
+              </Button>
+              <Button onClick={resetApp} className="flex-1">
+                Novo Usuário
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
