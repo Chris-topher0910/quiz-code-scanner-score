@@ -6,7 +6,8 @@ import { QrCodeScanner } from "@/components/QrCodeScanner";
 import { QuizInterface } from "@/components/QuizInterface";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
 import { UserForm } from "@/components/UserForm";
-import { Trophy, QrCode, User } from "lucide-react";
+import { GoogleFormLoader } from "@/components/GoogleFormLoader";
+import { Trophy, QrCode, User, FileText } from "lucide-react";
 
 export interface QuizQuestion {
   id: string;
@@ -31,14 +32,26 @@ export interface QuizResult {
 }
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState<'user' | 'scanner' | 'quiz' | 'results'>('user');
+  const [currentStep, setCurrentStep] = useState<'user' | 'loader' | 'scanner' | 'quiz' | 'results'>('user');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
   const [totalScore, setTotalScore] = useState(0);
+  const [availableQuestions, setAvailableQuestions] = useState<QuizQuestion[]>([]);
 
   const handleUserSubmit = (user: UserData) => {
     setUserData(user);
+    setCurrentStep('loader');
+  };
+
+  const handleQuestionsLoaded = (questions: QuizQuestion[]) => {
+    setAvailableQuestions(questions);
+    setCurrentStep('scanner');
+  };
+
+  const handleSkipGoogleForms = () => {
+    // Use default questions if user wants to skip Google Forms
+    setAvailableQuestions(getDefaultQuestions());
     setCurrentStep('scanner');
   };
 
@@ -82,36 +95,38 @@ const Index = () => {
     setCurrentQuestion(null);
     setQuizResults([]);
     setTotalScore(0);
+    setAvailableQuestions([]);
   };
 
-  // Função mock para buscar perguntas - em um app real, isso viria de uma API
+  // Função para buscar perguntas (do Google Forms ou padrão)
   const getQuestionById = (id: string): QuizQuestion | null => {
-    const questions: QuizQuestion[] = [
-      {
-        id: '1',
-        question: 'Qual é a capital do Brasil?',
-        options: ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador'],
-        correctAnswer: 2,
-        points: 10
-      },
-      {
-        id: '2',
-        question: 'Quanto é 2 + 2?',
-        options: ['3', '4', '5', '6'],
-        correctAnswer: 1,
-        points: 5
-      },
-      {
-        id: '3',
-        question: 'Qual é o maior planeta do sistema solar?',
-        options: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
-        correctAnswer: 2,
-        points: 15
-      }
-    ];
-    
-    return questions.find(q => q.id === id) || null;
+    return availableQuestions.find(q => q.id === id) || null;
   };
+
+  // Perguntas padrão caso não use Google Forms
+  const getDefaultQuestions = (): QuizQuestion[] => [
+    {
+      id: '1',
+      question: 'Qual é a capital do Brasil?',
+      options: ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador'],
+      correctAnswer: 2,
+      points: 10
+    },
+    {
+      id: '2',
+      question: 'Quanto é 2 + 2?',
+      options: ['3', '4', '5', '6'],
+      correctAnswer: 1,
+      points: 5
+    },
+    {
+      id: '3',
+      question: 'Qual é o maior planeta do sistema solar?',
+      options: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+      correctAnswer: 2,
+      points: 15
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
@@ -126,6 +141,35 @@ const Index = () => {
 
         {currentStep === 'user' && (
           <UserForm onSubmit={handleUserSubmit} />
+        )}
+
+        {currentStep === 'loader' && userData && (
+          <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Carregar Perguntas
+                </CardTitle>
+                <CardDescription>
+                  Carregue perguntas do Google Forms ou use as perguntas padrão
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <GoogleFormLoader onQuestionsLoaded={handleQuestionsLoaded} />
+            
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">ou</p>
+              <Button 
+                variant="outline" 
+                onClick={handleSkipGoogleForms}
+                className="w-full"
+              >
+                Usar Perguntas Padrão
+              </Button>
+            </div>
+          </div>
         )}
 
         {currentStep === 'scanner' && userData && (
