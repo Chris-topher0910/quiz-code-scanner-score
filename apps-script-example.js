@@ -43,7 +43,7 @@ function doGet() {
         question: questionTitle,
         options: choices.map(choice => choice.getValue()),
         correctAnswer: correctAnswer,
-        points: 10
+        points: 1
       };
       
       questions.push(questionData);
