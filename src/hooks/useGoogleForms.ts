@@ -18,12 +18,11 @@ export const useGoogleForms = () => {
     setError(null)
 
     try {
-      const response = await fetch('/api/fetch-google-form', {
-        method: 'POST',
+      const response = await fetch('https://script.google.com/macros/s/AKfycbw22YUz7ac0eKQfQC7LMI2ghdVBoVnuCliuPjyg8H-n1UkB8cSet4zuA3-nICXMo79X/exec', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ formId })
+        }
       })
 
       if (!response.ok) {
