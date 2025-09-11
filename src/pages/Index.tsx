@@ -103,140 +103,211 @@ const Index = () => {
     return availableQuestions.find(q => q.id === id) || null;
   };
 
-  // Perguntas do formulário Google Apps Script
+  // Perguntas sobre Informática
   const getDefaultQuestions = (): QuizQuestion[] => [
     {
       id: '1',
-      question: 'Qual é a capital do Brasil?',
-      options: ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador'],
+      question: 'QUAL DESSES É UM PERIFÉRICO DE ENTRADA?',
+      options: ['IMPRESSORA', 'MONITOR', 'WEBCAM (CÂMERA)', 'CAIXA DE SOM', 'HEAD-SET'],
       correctAnswer: 2,
       points: 10
     },
     {
       id: '2',
-      question: 'Quanto é 2 + 2?',
-      options: ['3', '4', '5', '6'],
-      correctAnswer: 1,
-      points: 5
-    },
-    {
-      id: '3',
-      question: 'Qual é o maior planeta do sistema solar?',
-      options: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
-      correctAnswer: 2,
-      points: 15
-    },
-    {
-      id: '4',
-      question: 'Quem pintou a Mona Lisa?',
-      options: ['Van Gogh', 'Leonardo da Vinci', 'Picasso', 'Michelangelo'],
-      correctAnswer: 1,
-      points: 15
-    },
-    {
-      id: '5',
-      question: 'Qual é o elemento químico com símbolo O?',
-      options: ['Ouro', 'Oxigênio', 'Ósmio', 'Oligênio'],
-      correctAnswer: 1,
-      points: 10
-    },
-    {
-      id: '6',
-      question: 'Em que ano o homem pisou na Lua pela primeira vez?',
-      options: ['1967', '1968', '1969', '1970'],
-      correctAnswer: 2,
-      points: 20
-    },
-    {
-      id: '7',
-      question: 'Qual é o maior oceano do mundo?',
-      options: ['Atlântico', 'Índico', 'Ártico', 'Pacífico'],
-      correctAnswer: 3,
-      points: 10
-    },
-    {
-      id: '8',
-      question: 'Quantos continentes existem?',
-      options: ['5', '6', '7', '8'],
-      correctAnswer: 2,
-      points: 5
-    },
-    {
-      id: '9',
-      question: 'Qual é a moeda oficial do Japão?',
-      options: ['Won', 'Yuan', 'Yen', 'Dong'],
-      correctAnswer: 2,
-      points: 10
-    },
-    {
-      id: '10',
-      question: 'Quem escreveu "Dom Casmurro"?',
-      options: ['Machado de Assis', 'José de Alencar', 'Clarice Lispector', 'Guimarães Rosa'],
+      question: 'QUAL É A DEFINIÇÃO DE HARDWARE?',
+      options: [
+        'Hardware é a parte física do computador e de outros dispositivos eletrônicos.',
+        'Hardware é a parte lógica do computador, composta pelos programas e aplicativos que executam tarefas.',
+        'Hardware é a parte física do computador, mas inclui apenas os dispositivos de entrada',
+        'Hardware é o conjunto de instruções responsáveis por controlar o funcionamento do s.o'
+      ],
       correctAnswer: 0,
       points: 15
     },
     {
-      id: '11',
-      question: 'Qual é a fórmula da água?',
-      options: ['CO2', 'H2O', 'O2', 'H2SO4'],
-      correctAnswer: 1,
-      points: 5
-    },
-    {
-      id: '12',
-      question: 'Em que país se localiza Machu Picchu?',
-      options: ['Chile', 'Bolívia', 'Peru', 'Equador'],
-      correctAnswer: 2,
-      points: 15
-    },
-    {
-      id: '13',
-      question: 'Qual é o menor país do mundo?',
-      options: ['Mônaco', 'Vaticano', 'San Marino', 'Liechtenstein'],
-      correctAnswer: 1,
-      points: 20
-    },
-    {
-      id: '14',
-      question: 'Quantos lados tem um hexágono?',
-      options: ['5', '6', '7', '8'],
-      correctAnswer: 1,
-      points: 5
-    },
-    {
-      id: '15',
-      question: 'Qual é a velocidade da luz no vácuo?',
-      options: ['300.000 km/s', '299.792.458 m/s', '150.000 km/s', '400.000 km/s'],
-      correctAnswer: 1,
-      points: 25
-    },
-    {
-      id: '16',
-      question: 'Quem foi o primeiro presidente do Brasil?',
-      options: ['Getúlio Vargas', 'Juscelino Kubitschek', 'Deodoro da Fonseca', 'Floriano Peixoto'],
-      correctAnswer: 2,
-      points: 15
-    },
-    {
-      id: '17',
-      question: 'Qual é o rio mais longo do mundo?',
-      options: ['Rio Amazonas', 'Rio Nilo', 'Rio Mississipi', 'Rio Yangtzé'],
-      correctAnswer: 1,
-      points: 15
-    },
-    {
-      id: '18',
-      question: 'Em que ano foi proclamada a Independência do Brasil?',
-      options: ['1820', '1821', '1822', '1823'],
+      id: '3',
+      question: 'NA ARQUITETURA DOS COMPUTADORES, QUAL COMPONENTE É RESPONSÁVEL PELA MEMÓRIA TEMPORÁRIA?',
+      options: ['CPU', 'ROM', 'RAM', 'FONTE', 'PLM'],
       correctAnswer: 2,
       points: 10
     },
     {
-      id: '19',
-      question: 'Qual é o sistema operacional desenvolvido pela Apple?',
-      options: ['Windows', 'Linux', 'Android', 'macOS'],
+      id: '4',
+      question: 'QUAL O FATOR QUE MOTIVOU A CRIAÇÃO DA ARPANET PELO GOVERNO DOS EUA?',
+      options: ['Primeira Guerra Mundial', 'Segunda Guerra Mundial', 'Guerra Fria', 'Guerra do Golfo', 'Guerra do Vietnã'],
+      correctAnswer: 2,
+      points: 20
+    },
+    {
+      id: '5',
+      question: 'QUAL O ÓRGÃO RESPONSÁVEL PELA CRIAÇÃO DA ARPANET?',
+      options: ['MICROSOFT', 'IBM', 'APPLE', 'DARPA', 'GOOGLE'],
       correctAnswer: 3,
-      points: 5
+      points: 15
+    },
+    {
+      id: '6',
+      question: 'NO CMD, QUAL O COMANDO RESPONSÁVEL POR MOSTRAR O IP DO COMPUTADOR?',
+      options: ['arp -a', 'shutdown -s -t', 'ipconfig', '/displaydns', '/flushDNS'],
+      correctAnswer: 2,
+      points: 10
+    },
+    {
+      id: '7',
+      question: 'NO CMD, QUAL O COMANDO RESPONSÁVEL POR PROGRAMAR O DESLIGAMENTO DO COMPUTADOR?',
+      options: ['arp -a', 'shutdown -s -t', 'ipconfig', '/displayDNS', '/flushDNS'],
+      correctAnswer: 1,
+      points: 15
+    },
+    {
+      id: '8',
+      question: 'NO CMD, QUAL O COMANDO RESPONSÁVEL POR MOSTRAR O HISTÓRICO DO ROTEADOR?',
+      options: ['arp -a', 'shutdown -s -t', 'ipconfig', '/displayDNS', '/flushDNS'],
+      correctAnswer: 0,
+      points: 15
+    },
+    {
+      id: '9',
+      question: 'NO CMD, QUAL O COMANDO RESPONSÁVEL POR LIMPAR O HISTÓRICO DO ROTEADOR?',
+      options: ['arp -a', 'shutdown -s -t', 'ipconfig', '/displayDNS', '/flushDNS'],
+      correctAnswer: 4,
+      points: 15
+    },
+    {
+      id: '10',
+      question: 'QUAL DESSES É UM PROGRAMA OPERACIONAL?',
+      options: ['WORD', 'EXCEL', 'POWERPOINT', 'BROWSER', 'EXPLORER', 'MOUSE DRIVER'],
+      correctAnswer: 5,
+      points: 20
+    },
+    {
+      id: '11',
+      question: 'QUAL A DEFINIÇÃO DE SOFTWARE?',
+      options: [
+        'Software é a parte lógica do computador, composta por programas',
+        'Software é a parte física do computador, formada por cabos, chips',
+        'Software é o conjunto de dispositivos de entrada e saída',
+        'Software é a energia elétrica que faz os componentes do computador'
+      ],
+      correctAnswer: 0,
+      points: 15
+    },
+    {
+      id: '12',
+      question: 'QUAL DAS SEGUINTES OPÇÕES É UTILIZADA PARA ALTERAR A APARÊNCIA DO TEXTO SELECIONADO, COMO O TIPO DE LETRA, TAMANHO E COR?',
+      options: [
+        'Ferramenta de Alinhamento',
+        'Ferramenta de Formatação de Fonte',
+        'Ferramenta de Inserir Tabela',
+        'Ferramenta de Verificação Ortográfica',
+        'Ferramenta de Zoom'
+      ],
+      correctAnswer: 1,
+      points: 10
+    },
+    {
+      id: '13',
+      question: 'QUAL É A FUNÇÃO DO COMANDO "QUEBRA DE SEÇÃO" NO WORD?',
+      options: [
+        'Inserir um novo parágrafo com formatação diferente',
+        'Iniciar uma nova página com formatação distinta da anterior (como margens, orientação, cabeçalhos/rodapés).',
+        'Alterar a fonte de todo o documento.',
+        'Adicionar uma borda à página.',
+        'Criar uma lista numerada.'
+      ],
+      correctAnswer: 1,
+      points: 15
+    },
+    {
+      id: '14',
+      question: 'O QUE SIGNIFICA O TERMO "CABEÇALHO" EM UM DOCUMENTO DO WORD?',
+      options: [
+        'Uma área no topo de cada página, usada para o texto principal do documento.',
+        'Uma área no topo de cada página, usada para informações de orientação.',
+        'Uma área no topo de cada página, usada para a nota de rodapé no final da página.',
+        'Uma área no topo de cada página, usada para o título de um capítulo.',
+        'Uma área no topo de cada página, usada para o texto que aparece em negrito.'
+      ],
+      correctAnswer: 1,
+      points: 10
+    },
+    {
+      id: '15',
+      question: 'QUAL A DIFERENÇA ENTRE "SALVAR" E "SALVAR COMO"?',
+      options: [
+        'Não há diferença, são sinônimos.',
+        '"Salvar" atualiza o arquivo existente com as últimas alterações, enquanto "Salvar como" permite salvar o documento com um novo nome ou em um local diferente, criando uma cópia.',
+        '"Salvar como" apenas salva o documento pela primeira vez.',
+        '"Salvar" permite escolher o formato do arquivo, e "Salvar como" não.',
+        '"Salvar" fecha o documento, e "Salvar como" o mantém aberto.'
+      ],
+      correctAnswer: 1,
+      points: 15
+    },
+    {
+      id: '16',
+      question: 'PARA QUE SERVE O RECURSO "HIFENIZAÇÃO" NO WORD?',
+      options: [
+        'Para criar listas com marcadores e números.',
+        'Para dividir palavras no final das linhas, quando necessário, para justificar o texto e evitar espaços excessivos.',
+        'Para inserir símbolos especiais como © ou ®.',
+        'Para ajustar o espaçamento entre as palavras.',
+        'Para formatar o texto em colunas.'
+      ],
+      correctAnswer: 1,
+      points: 20
+    },
+    {
+      id: '17',
+      question: 'QUAL A FUNÇÃO DA OPÇÃO "VISUALIZAR IMPRESSÃO"?',
+      options: [
+        'Permite editar o texto antes de imprimir.',
+        'Mostra como o documento ficará após ser impresso, permitindo ajustes antes de enviar para a impressora.',
+        'Define o número de cópias a serem impressas.',
+        'Seleciona a impressora a ser utilizada.',
+        'Altera a orientação da página para impressão.'
+      ],
+      correctAnswer: 1,
+      points: 10
+    },
+    {
+      id: '18',
+      question: 'O QUE SÃO "NOTAS DE RODAPÉ" E "NOTAS DE FIM"?',
+      options: [
+        'São sinônimos e aparecem no final do documento.',
+        'São textos explicativos ou referências que aparecem na parte inferior da página (rodapé) ou no final do documento/seção (fim).',
+        'São apenas títulos de capítulos.',
+        'São comentários feitos por outros usuários.',
+        'São legendas de imagens.'
+      ],
+      correctAnswer: 1,
+      points: 15
+    },
+    {
+      id: '19',
+      question: 'QUAL O PROPÓSITO DE USAR "COLUNAS" EM UM DOCUMENTO DO WORD?',
+      options: [
+        'Para aumentar o tamanho da fonte do texto.',
+        'Para organizar o texto em blocos verticais, semelhante à aparência de jornais ou revistas, melhorando a legibilidade em textos longos.',
+        'Para criar tabelas com dados.',
+        'Para aplicar negrito e itálico ao texto.',
+        'Para inserir imagens e gráficos.'
+      ],
+      correctAnswer: 1,
+      points: 15
+    },
+    {
+      id: '20',
+      question: 'O QUE O RECURSO "CONTROLE DE ALTERAÇÕES" (TRACK CHANGES) PERMITE FAZER?',
+      options: [
+        'Salvar automaticamente o documento a cada minuto.',
+        'Registrar todas as modificações feitas em um documento (inserções, exclusões, formatação), permitindo que outros revisores vejam quem alterou o quê e aceitem ou rejeitem as mudanças.',
+        'Criar um índice remissivo do documento.',
+        'Formatar o texto em caixa alta ou baixa.',
+        'Inserir comentários no documento.'
+      ],
+      correctAnswer: 1,
+      points: 25
     }
   ];
 
