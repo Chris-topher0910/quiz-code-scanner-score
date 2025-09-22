@@ -17,11 +17,17 @@ export const QrCodeScanner: React.FC<QrCodeScannerProps> = ({ onScan }) => {
   const [manualInput, setManualInput] = useState('');
   const { toast } = useToast();
   const scannerRef = useRef<HTMLDivElement>(null);
-  const [isScannerActive, setIsScannerActive] = useState(false);
+  const scannerInstanceRef = useRef<Html5QrcodeScanner | null>(null);
 
   useEffect(() => {
-    if (scanMode === "camera" && scannerRef.current && !isScannerActive) {
+    if (scanMode === "camera" && scannerRef.current) {
+      // Clear any existing scanner first
+      if (scannerInstanceRef.current) {
+        scannerInstanceRef.current.clear().catch(console.error);
+      }
+
       const scanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 }, false);
+      scannerInstanceRef.current = scanner;
 
       scanner.render(
         (decodedText) => {
@@ -30,22 +36,22 @@ export const QrCodeScanner: React.FC<QrCodeScannerProps> = ({ onScan }) => {
             title: "QR Code detectado!",
             description: `ID/Link: ${decodedText}`,
           });
-          scanner.clear();
-          setIsScannerActive(false);
+          scanner.clear().catch(console.error);
+          scannerInstanceRef.current = null;
         },
         (error) => {
-          console.warn("QR não detectado:", error);
+          // Silently handle scan errors (normal when no QR code is visible)
         }
       );
 
-      setIsScannerActive(true);
-
       return () => {
-        scanner.clear().catch((err) => console.error("Erro ao limpar scanner:", err));
-        setIsScannerActive(false);
+        if (scannerInstanceRef.current) {
+          scannerInstanceRef.current.clear().catch(console.error);
+          scannerInstanceRef.current = null;
+        }
       };
     }
-  }, [scanMode, onScan, toast, isScannerActive]);
+  }, [scanMode, onScan, toast]);
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault();
