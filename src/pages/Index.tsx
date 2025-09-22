@@ -32,7 +32,7 @@ export interface QuizResult {
 }
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState<'user' | 'loader' | 'scanner' | 'quiz' | 'results'>('user');
+  const [currentStep, setCurrentStep] = useState<'user' | 'main' | 'quiz' | 'results'>('user');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
@@ -41,18 +41,16 @@ const Index = () => {
 
   const handleUserSubmit = (user: UserData) => {
     setUserData(user);
-    setCurrentStep('loader');
+    setCurrentStep('main');
   };
 
   const handleQuestionsLoaded = (questions: QuizQuestion[]) => {
     setAvailableQuestions(questions);
-    setCurrentStep('scanner');
   };
 
   const handleSkipGoogleForms = () => {
     // Use default questions if user wants to skip Google Forms
     setAvailableQuestions(getDefaultQuestions());
-    setCurrentStep('scanner');
   };
 
   const handleQrCodeScanned = (questionId: string) => {
@@ -85,7 +83,7 @@ const Index = () => {
   };
 
   const resetQuiz = () => {
-    setCurrentStep('scanner');
+    setCurrentStep('main');
     setCurrentQuestion(null);
   };
 
@@ -326,8 +324,20 @@ const Index = () => {
           <UserForm onSubmit={handleUserSubmit} />
         )}
 
-        {currentStep === 'loader' && userData && (
+        {currentStep === 'main' && userData && (
           <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="h-5 w-5" />
+                  Olá, {userData.name}!
+                </CardTitle>
+                <CardDescription>
+                  Carregue perguntas e escaneie QR Codes para começar
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -352,22 +362,7 @@ const Index = () => {
                 Usar Perguntas Padrão
               </Button>
             </div>
-          </div>
-        )}
 
-        {currentStep === 'scanner' && userData && (
-          <div className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  Olá, {userData.name}!
-                </CardTitle>
-                <CardDescription>
-                  Escaneie um QR Code para começar o quiz
-                </CardDescription>
-              </CardHeader>
-            </Card>
             <QrCodeScanner onScan={handleQrCodeScanned} />
           </div>
         )}
