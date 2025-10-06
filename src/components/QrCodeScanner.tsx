@@ -100,13 +100,14 @@ export const QrCodeScanner: React.FC<QrCodeScannerProps> = ({ onScan }) => {
         }
       };
     }
-  }, [scanMode, cameraPermission, onScan]);
+  }, [scanMode, cameraPermission, onScan, toast]);
 
   // Verificar permissão inicial
   useEffect(() => {
     if (scanMode === 'camera' && cameraPermission === 'pending') {
       checkCameraPermission();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scanMode, cameraPermission]);
 
   const handleCameraModeClick = () => {
