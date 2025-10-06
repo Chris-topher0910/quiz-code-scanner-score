@@ -32,7 +32,7 @@ export interface QuizResult {
 }
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState<'user' | 'main' | 'quiz' | 'results'>('user');
+  const [currentStep, setCurrentStep] = useState<'user' | 'main' | 'scanner' | 'quiz' | 'results'>('user');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
@@ -46,11 +46,13 @@ const Index = () => {
 
   const handleQuestionsLoaded = (questions: QuizQuestion[]) => {
     setAvailableQuestions(questions);
+    setCurrentStep('scanner');
   };
 
   const handleSkipGoogleForms = () => {
     // Use default questions if user wants to skip Google Forms
     setAvailableQuestions(getDefaultQuestions());
+    setCurrentStep('scanner');
   };
 
   const handleQrCodeScanned = (questionId: string) => {
@@ -83,7 +85,7 @@ const Index = () => {
   };
 
   const resetQuiz = () => {
-    setCurrentStep('main');
+    setCurrentStep('scanner');
     setCurrentQuestion(null);
   };
 
@@ -325,7 +327,7 @@ const Index = () => {
         )}
 
         {currentStep === 'main' && userData && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -333,37 +335,49 @@ const Index = () => {
                   Olá, {userData.name}!
                 </CardTitle>
                 <CardDescription>
-                  Carregue perguntas e escaneie QR Codes para começar
+                  Escolha como deseja carregar as perguntas do quiz
                 </CardDescription>
               </CardHeader>
-            </Card>
+              <CardContent className="space-y-3">
+                <GoogleFormLoader onQuestionsLoaded={handleQuestionsLoaded} />
 
+                <Button 
+                  variant="outline" 
+                  onClick={handleSkipGoogleForms}
+                  className="w-full h-auto py-4 flex-col gap-2"
+                >
+                  <FileText className="h-6 w-6" />
+                  <span className="font-semibold">Usar Perguntas Gravadas</span>
+                  <span className="text-xs opacity-90">Perguntas padrão do sistema</span>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {currentStep === 'scanner' && (
+          <div className="space-y-4">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
-                  Carregar Perguntas
+                  <User className="h-5 w-5" />
+                  Olá, {userData?.name}!
                 </CardTitle>
                 <CardDescription>
-                  Carregue perguntas do Google Forms ou use as perguntas padrão
+                  Perguntas carregadas! Escaneie um QR Code para começar
                 </CardDescription>
               </CardHeader>
             </Card>
-            
-            <GoogleFormLoader onQuestionsLoaded={handleQuestionsLoaded} />
-            
-            <div className="text-center">
-              <p className="text-sm text-muted-foreground mb-2">ou</p>
-              <Button 
-                variant="outline" 
-                onClick={handleSkipGoogleForms}
-                className="w-full"
-              >
-                Usar Perguntas Padrão
-              </Button>
-            </div>
 
             <QrCodeScanner onScan={handleQrCodeScanned} />
+            
+            <Button 
+              variant="outline" 
+              onClick={() => setCurrentStep('main')}
+              className="w-full"
+            >
+              Voltar
+            </Button>
           </div>
         )}
 
