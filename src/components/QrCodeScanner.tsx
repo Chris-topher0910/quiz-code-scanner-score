@@ -14,9 +14,9 @@ interface QrCodeScannerProps {
 
 export const QrCodeScanner: React.FC<QrCodeScannerProps> = ({ onScan }) => {
   const [scanMode, setScanMode] = useState<'camera' | 'manual'>('manual');
-  const [manualInput, setManualInput] = useState('');
+  const [manualInput, setManualInput] = useState<string>('');
   const [cameraPermission, setCameraPermission] = useState<'pending' | 'granted' | 'denied'>('pending');
-  const [isRequestingPermission, setIsRequestingPermission] = useState(false);
+  const [isRequestingPermission, setIsRequestingPermission] = useState<boolean>(false);
   const { toast } = useToast();
   const scannerRef = useRef<HTMLDivElement>(null);
   const scannerInstanceRef = useRef<Html5QrcodeScanner | null>(null);
@@ -100,7 +100,7 @@ export const QrCodeScanner: React.FC<QrCodeScannerProps> = ({ onScan }) => {
         }
       };
     }
-  }, [scanMode, cameraPermission, onScan, toast]);
+  }, [scanMode, cameraPermission, onScan]);
 
   // Verificar permissão inicial
   useEffect(() => {
