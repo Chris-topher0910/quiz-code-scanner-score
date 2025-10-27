@@ -8,6 +8,8 @@ import { ScoreDisplay } from "@/components/ScoreDisplay";
 import { UserForm } from "@/components/UserForm";
 import { GoogleFormLoader } from "@/components/GoogleFormLoader";
 import { Trophy, QrCode, User, FileText } from "lucide-react";
+import { useQuizCache } from "@/hooks/useQuizCache";
+import { useToast } from "@/hooks/use-toast";
 
 export interface QuizQuestion {
   id: string;
@@ -38,6 +40,8 @@ const Index = () => {
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
   const [totalScore, setTotalScore] = useState(0);
   const [availableQuestions, setAvailableQuestions] = useState<QuizQuestion[]>([]);
+  const { cachedQuestions, saveQuestions, saveUserScore, hasCachedQuestions } = useQuizCache();
+  const { toast } = useToast();
 
   const handleUserSubmit = (user: UserData) => {
     setUserData(user);
@@ -46,13 +50,34 @@ const Index = () => {
 
   const handleQuestionsLoaded = (questions: QuizQuestion[]) => {
     setAvailableQuestions(questions);
+    saveQuestions(questions); // Save to cache
     setCurrentStep('scanner');
+    toast({
+      title: "Perguntas salvas!",
+      description: "As perguntas foram armazenadas localmente.",
+    });
   };
 
   const handleSkipGoogleForms = () => {
-    // Use default questions if user wants to skip Google Forms
-    setAvailableQuestions(getDefaultQuestions());
-    setCurrentStep('scanner');
+    // Load cached questions if available
+    if (hasCachedQuestions()) {
+      setAvailableQuestions(cachedQuestions);
+      setCurrentStep('scanner');
+      toast({
+        title: "Perguntas carregadas!",
+        description: `${cachedQuestions.length} perguntas carregadas do cache.`,
+      });
+    } else {
+      // Use default questions if no cached questions
+      const defaultQuestions = getDefaultQuestions();
+      setAvailableQuestions(defaultQuestions);
+      saveQuestions(defaultQuestions);
+      setCurrentStep('scanner');
+      toast({
+        title: "Perguntas padrão carregadas",
+        description: "Usando perguntas padrão do sistema.",
+      });
+    }
   };
 
   const handleQrCodeScanned = (questionId: string) => {
@@ -65,7 +90,7 @@ const Index = () => {
   };
 
   const handleQuizAnswer = (answer: number) => {
-    if (!currentQuestion) return;
+    if (!currentQuestion || !userData) return;
 
     const isCorrect = answer === currentQuestion.correctAnswer;
     const points = isCorrect ? currentQuestion.points : 0;
@@ -79,8 +104,13 @@ const Index = () => {
       isCorrect: isCorrect
     };
 
-    setQuizResults(prev => [...prev, result]);
+    const updatedResults = [...quizResults, result];
+    setQuizResults(updatedResults);
     setTotalScore(prev => prev + points);
+    
+    // Save user score to cache
+    saveUserScore(userData, updatedResults, availableQuestions);
+    
     setCurrentStep('results');
   };
 
