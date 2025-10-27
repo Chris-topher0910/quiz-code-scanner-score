@@ -13,11 +13,9 @@ interface QrCodeGeneratorProps {
 export const QrCodeGenerator: React.FC<QrCodeGeneratorProps> = ({ questions }) => {
   const generateAndDownloadQR = async (question: QuizQuestion) => {
     try {
-      const qrData = JSON.stringify({
-        id: question.id,
-        question: question.question,
-        points: question.points
-      });
+      // Generate URL with question ID
+      const currentUrl = window.location.origin + window.location.pathname;
+      const qrData = `${currentUrl}?question=${question.id}`;
       
       const qrCodeDataUrl = await QRCode.toDataURL(qrData, {
         width: 512,

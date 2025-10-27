@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { QrCodeScanner } from "@/components/QrCodeScanner";
@@ -81,12 +81,44 @@ const Index = () => {
     }
   };
 
-  const handleQrCodeScanned = (questionId: string) => {
-    // Buscar pergunta baseada no ID do QR Code
-    const question = getQuestionById(questionId);
-    if (question) {
-      setCurrentQuestion(question);
-      setCurrentStep('quiz');
+  const handleQrCodeScanned = (data: string) => {
+    try {
+      let questionId: string;
+      
+      // Check if it's a URL with question parameter
+      if (data.includes('?question=')) {
+        const url = new URL(data);
+        questionId = url.searchParams.get('question') || '';
+      } else {
+        // Fallback: try to parse as JSON (old format)
+        const scannedData = JSON.parse(data);
+        questionId = scannedData.id;
+      }
+      
+      // Find the question in available questions
+      const question = getQuestionById(questionId);
+      
+      if (question) {
+        setCurrentQuestion(question);
+        setCurrentStep('quiz');
+        toast({
+          title: "Pergunta carregada!",
+          description: `Pergunta #${question.id} carregada com sucesso!`,
+        });
+      } else {
+        toast({
+          title: "Erro",
+          description: "Pergunta não encontrada",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao processar QR code:", error);
+      toast({
+        title: "Erro",
+        description: "QR code inválido",
+        variant: "destructive",
+      });
     }
   };
 
@@ -114,6 +146,30 @@ const Index = () => {
     
     setCurrentStep('results');
   };
+
+  // Check URL parameters on mount (for QR code direct access)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionId = urlParams.get('question');
+    
+    if (questionId) {
+      // Wait for questions to be loaded from cache
+      if (hasCachedQuestions()) {
+        const question = cachedQuestions.find(q => q.id === questionId);
+        if (question) {
+          setAvailableQuestions(cachedQuestions);
+          setCurrentQuestion(question);
+          setCurrentStep('quiz');
+          toast({
+            title: "Pergunta carregada!",
+            description: `Pergunta #${question.id} carregada via QR code!`,
+          });
+          // Clean URL
+          window.history.replaceState({}, '', window.location.pathname);
+        }
+      }
+    }
+  }, [hasCachedQuestions, cachedQuestions, toast]);
 
   const resetQuiz = () => {
     setCurrentStep('scanner');
