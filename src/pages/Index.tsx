@@ -7,6 +7,7 @@ import { QuizInterface } from "@/components/QuizInterface";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
 import { UserForm } from "@/components/UserForm";
 import { GoogleFormLoader } from "@/components/GoogleFormLoader";
+import { QrCodeGenerator } from "@/components/QrCodeGenerator";
 import { Trophy, QrCode, User, FileText } from "lucide-react";
 import { useQuizCache } from "@/hooks/useQuizCache";
 import { useToast } from "@/hooks/use-toast";
@@ -398,6 +399,8 @@ const Index = () => {
                 </CardDescription>
               </CardHeader>
             </Card>
+
+            <QrCodeGenerator questions={availableQuestions} />
 
             <QrCodeScanner onScan={handleQrCodeScanned} />
             
