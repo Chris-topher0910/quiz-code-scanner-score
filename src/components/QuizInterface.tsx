@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -14,6 +14,11 @@ interface QuizInterfaceProps {
 
 export const QuizInterface: React.FC<QuizInterfaceProps> = ({ question, onAnswer }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+
+  // Reset selected answer when question changes
+  useEffect(() => {
+    setSelectedAnswer(null);
+  }, [question.id]);
 
   const handleSubmit = () => {
     if (selectedAnswer !== null) {
