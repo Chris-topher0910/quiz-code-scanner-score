@@ -154,7 +154,7 @@ const Index = () => {
     
     if (questionId) {
       // Wait for questions to be loaded from cache
-      if (hasCachedQuestions()) {
+      if (hasCachedQuestions() && userData) {
         const question = cachedQuestions.find(q => q.id === questionId);
         if (question) {
           setAvailableQuestions(cachedQuestions);
@@ -167,9 +167,33 @@ const Index = () => {
           // Clean URL
           window.history.replaceState({}, '', window.location.pathname);
         }
+      } else if (questionId && !userData) {
+        // Store the question ID to load after login
+        sessionStorage.setItem('pendingQuestionId', questionId);
       }
     }
-  }, [hasCachedQuestions, cachedQuestions, toast]);
+  }, [hasCachedQuestions, cachedQuestions, userData, toast]);
+
+  // Load pending question after user login
+  useEffect(() => {
+    const pendingQuestionId = sessionStorage.getItem('pendingQuestionId');
+    
+    if (pendingQuestionId && userData && hasCachedQuestions()) {
+      const question = cachedQuestions.find(q => q.id === pendingQuestionId);
+      if (question) {
+        setAvailableQuestions(cachedQuestions);
+        setCurrentQuestion(question);
+        setCurrentStep('quiz');
+        toast({
+          title: "Pergunta carregada!",
+          description: `Pergunta #${question.id} carregada via QR code!`,
+        });
+        sessionStorage.removeItem('pendingQuestionId');
+        // Clean URL
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    }
+  }, [userData, hasCachedQuestions, cachedQuestions, toast]);
 
   const resetQuiz = () => {
     setCurrentStep('scanner');
