@@ -18,6 +18,42 @@ a se integrarem no mercado de trabalho, e para isso, o projeto EIC (Escola de In
 INPAR (Instituto Presbiteriâno Álvaro Reis) sediará o projeto idealizado por Christopher Wallace de Sá Diniz (@chris-topher0910) com parceria de
 Jonas Luiz (@jonasluis) que tem como intuito premiar com computadores os alunos destaque do projeto de informatica EIC.
 
+CAMPEONATO INFORMATICA
+
+OFICINAS DO CAMPEONATO
+DESCRIPTOGRAFANDO A PISTA DE MONTAGEM DE PCs (eliminatória - grupo)
+A proposta dessa prova consiste em gerar trabalho em equipe para que através do empenho coletivo os participantes do grupo consigam a oportunidade de disputar os 10 computadores.
+~uma oportunidade só existe se você estiver preparado para ela, porem só é uma oportunidade caso a condição seja dada a alguém. ninguem consegue nada sozinho~
+
+Os grupos serão separados em áreas, de forma restrita, para que não possam ter a oportunidade de se organizarem visando favorecimento. Para isso, quem decidirá os alunos de cada grupo será eu, de acordo com o desempenho ao longo do ano relacionado as aulas, além disso, será integrado ao aplicativo um dump com o registro de e-mail de todos os participantes, para que os grupos não possam ser mudados.
+
+Após isso, será dado o início a prova, após os esclarecimentos das regras e condições:A prova será dividida em duas etapas, a primeira, será uma caça a pistas de informações para descriptografar um código, o qual revelará a localização da chave de uma sala onde estará alguns computadores a serem desmontados e montados pelos participantes que conseguirem desvendar o código criptografado.
+
+Essa etapa é em grupo, e determinará os participantes do campeonato, assim, eliminando os demais grupos participantes
+
+PISTA DE MONTAGEM DE PC'S (eliminatória - individual)
+
+PISTA DE ORIENTAÇÃO DIGITAL (pontuação - individual)
+
+CAÇA BANDEIRA DIGITAL (eliminatória - individual)
+
+-APLICATIVO LEITOR DE QR CODE
+
+-FUNCIONALIDADES:
+[] TELA DE LOGIN
+  [] fazer banco de dados com cadastro dos alunos
+  
+[]SCANER QR CODE
+  [] Fazer formulário do google forns para linkar como perguntas do questionário
+  [] Usar o Apps Script do google para fazer a API de integração do formulário com o aplicativo
+  {}Transformar o link do formulário em um QRcode para ler com o leitor do aplicativo
+
+
+[]MARCADOR DE SCORE
+  [] Fazer um ranking com os alunos cadastrados no banco de dados que fizerem o login no aplicativo
+
+DESENVOLVER INTERFACE
+
 **URL**: https://lovable.dev/projects/6c3652e4-c87e-4ef6-b619-531ef9c605ad
 
 ## How can I edit this code?
