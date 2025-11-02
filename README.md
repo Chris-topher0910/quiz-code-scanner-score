@@ -16,7 +16,7 @@ O aplicativo tem como intuito ser uma ferramenta auxiliar em um projeto pedagóg
 REVER o qual é uma escola de reforço para crianças e adolescentes onde o intuito é ajudar os jovens de comunidades
 a se integrarem no mercado de trabalho, e para isso, o projeto EIC (Escola de Informática e Cidadania) da instituição
 INPAR (Instituto Presbiteriâno Álvaro Reis) sediará o projeto idealizado por Christopher Wallace de Sá Diniz (@chris-topher0910) com parceria de
-Jonas Luiz (@jonasluis) que tem como intuito premiar os alunos destaque do projeto de informatica EIC.
+Jonas Luiz (@jonasluis) que tem como intuito premiar com computadores os alunos destaque do projeto de informatica EIC.
 
 **URL**: https://lovable.dev/projects/6c3652e4-c87e-4ef6-b619-531ef9c605ad
 
