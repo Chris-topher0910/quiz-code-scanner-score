@@ -1,6 +1,17 @@
-# Welcome to your Lovable project
+# LEitor de QR Code
 
 ## Project info
+
+O leitor de QR Code criado tem como intuito funcionar em uma interface integrada ao google forns
+através do APPS SCRIPT do Google para que possa ter um funcionamento online através do navegador do celular,
+assim podendo ser utilizado tanto em um computador quanto em um smartphone sem a necessidade de
+versionamento em linguagens específicas como aplicativos Android e IOS.
+
+A ideia inicial era que o aplicativo service como um scaner de formulários 
+e que funcionasse de maneira integrada com um banco de armazenamento de dados para
+pontuações que seriam registradas em um perfil de usuário o qual seria logado
+com um e-mail de aluno do projeto que participará de um campeonato de informática.
+
 
 **URL**: https://lovable.dev/projects/6c3652e4-c87e-4ef6-b619-531ef9c605ad
 
