@@ -23,7 +23,7 @@ CAMPEONATO INFORMATICA
 OFICINAS DO CAMPEONATO
 DESCRIPTOGRAFANDO A PISTA DE MONTAGEM DE PCs (eliminatória - grupo)
 A proposta dessa prova consiste em gerar trabalho em equipe para que através do empenho coletivo os participantes do grupo consigam a oportunidade de disputar os 10 computadores.
-~uma oportunidade só existe se você estiver preparado para ela, porem só é uma oportunidade caso a condição seja dada a alguém. ninguem consegue nada sozinho~
+*uma oportunidade só existe se você estiver preparado para ela, porem só é uma oportunidade caso a condição seja dada a alguém. ninguem consegue nada sozinho*
 
 Os grupos serão separados em áreas, de forma restrita, para que não possam ter a oportunidade de se organizarem visando favorecimento. Para isso, quem decidirá os alunos de cada grupo será eu, de acordo com o desempenho ao longo do ano relacionado as aulas, além disso, será integrado ao aplicativo um dump com o registro de e-mail de todos os participantes, para que os grupos não possam ser mudados.
 
