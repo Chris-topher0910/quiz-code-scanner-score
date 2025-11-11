@@ -6,9 +6,8 @@ import { QrCodeScanner } from "@/components/QrCodeScanner";
 import { QuizInterface } from "@/components/QuizInterface";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
 import { UserForm } from "@/components/UserForm";
-import { GoogleFormLoader } from "@/components/GoogleFormLoader";
 import { QrCodeGenerator } from "@/components/QrCodeGenerator";
-import { Trophy, QrCode, User, FileText } from "lucide-react";
+import { Trophy, QrCode, User } from "lucide-react";
 import { useQuizCache } from "@/hooks/useQuizCache";
 import { useToast } from "@/hooks/use-toast";
 
@@ -35,7 +34,7 @@ export interface QuizResult {
 }
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState<'user' | 'main' | 'scanner' | 'quiz' | 'results'>('user');
+  const [currentStep, setCurrentStep] = useState<'user' | 'scanner' | 'quiz' | 'results'>('user');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
   const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
@@ -46,40 +45,25 @@ const Index = () => {
 
   const handleUserSubmit = (user: UserData) => {
     setUserData(user);
-    setCurrentStep('main');
-  };
-
-  const handleQuestionsLoaded = (questions: QuizQuestion[]) => {
-    setAvailableQuestions(questions);
-    saveQuestions(questions); // Save to cache
-    setCurrentStep('scanner');
-    toast({
-      title: "Perguntas salvas!",
-      description: "As perguntas foram armazenadas localmente.",
-    });
-  };
-
-  const handleSkipGoogleForms = () => {
-    // Load cached questions if available
+    // Load cached questions or default questions
     if (hasCachedQuestions()) {
       setAvailableQuestions(cachedQuestions);
-      setCurrentStep('scanner');
       toast({
         title: "Perguntas carregadas!",
         description: `${cachedQuestions.length} perguntas carregadas do cache.`,
       });
     } else {
-      // Use default questions if no cached questions
       const defaultQuestions = getDefaultQuestions();
       setAvailableQuestions(defaultQuestions);
       saveQuestions(defaultQuestions);
-      setCurrentStep('scanner');
       toast({
         title: "Perguntas padrão carregadas",
         description: "Usando perguntas padrão do sistema.",
       });
     }
+    setCurrentStep('scanner');
   };
+
 
   const handleQrCodeScanned = (data: string) => {
     try {
@@ -437,35 +421,6 @@ const Index = () => {
           <UserForm onSubmit={handleUserSubmit} />
         )}
 
-        {currentStep === 'main' && userData && (
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  Olá, {userData.name}!
-                </CardTitle>
-                <CardDescription>
-                  Escolha como deseja carregar as perguntas do quiz
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <GoogleFormLoader onQuestionsLoaded={handleQuestionsLoaded} />
-
-                <Button 
-                  variant="outline" 
-                  onClick={handleSkipGoogleForms}
-                  className="w-full h-auto py-4 flex-col gap-2"
-                >
-                  <FileText className="h-6 w-6" />
-                  <span className="font-semibold">Usar Perguntas Gravadas</span>
-                  <span className="text-xs opacity-90">Perguntas padrão do sistema</span>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
         {currentStep === 'scanner' && (
           <div className="space-y-4">
             <Card>
@@ -480,16 +435,16 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <QrCodeGenerator questions={availableQuestions} />
-
             <QrCodeScanner onScan={handleQrCodeScanned} />
+
+            <QrCodeGenerator questions={availableQuestions} />
             
             <Button 
               variant="outline" 
-              onClick={() => setCurrentStep('main')}
+              onClick={() => setCurrentStep('user')}
               className="w-full"
             >
-              Voltar
+              Sair
             </Button>
           </div>
         )}
