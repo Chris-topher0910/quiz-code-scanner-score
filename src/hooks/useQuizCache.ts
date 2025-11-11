@@ -68,29 +68,21 @@ export const useQuizCache = () => {
   const saveUserScore = (user: UserData, results: QuizResult[], questions: QuizQuestion[]) => {
     try {
       const score = results.reduce((acc, result) => acc + result.points, 0)
-      const totalPossible = questions.reduce((acc, q) => acc + q.points, 0)
       
-      const newScore: UserScore = {
-        userId: user.email,
-        userName: user.name,
-        userEmail: user.email,
-        score,
-        totalQuestions: questions.length,
+      // Create a unique key for each session
+      const sessionKey = `userScore_${user.email}_${Date.now()}`
+      
+      const sessionData = {
+        user: {
+          name: user.name,
+          email: user.email
+        },
         results,
-        timestamp: Date.now()
+        totalScore: score,
+        timestamp: new Date().toISOString()
       }
 
-      const existingScores = [...userScores]
-      const userIndex = existingScores.findIndex(s => s.userId === user.email)
-      
-      if (userIndex >= 0) {
-        existingScores[userIndex] = newScore
-      } else {
-        existingScores.push(newScore)
-      }
-
-      localStorage.setItem(SCORES_KEY, JSON.stringify(existingScores))
-      setUserScores(existingScores)
+      localStorage.setItem(sessionKey, JSON.stringify(sessionData))
     } catch (error) {
       console.error('Error saving user score:', error)
     }

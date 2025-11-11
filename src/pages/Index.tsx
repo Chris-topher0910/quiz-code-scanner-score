@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { QrCodeScanner } from "@/components/QrCodeScanner";
@@ -7,7 +8,7 @@ import { QuizInterface } from "@/components/QuizInterface";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
 import { UserForm } from "@/components/UserForm";
 import { QrCodeGenerator } from "@/components/QrCodeGenerator";
-import { Trophy, QrCode, User } from "lucide-react";
+import { Trophy, QrCode, User, History } from "lucide-react";
 import { useQuizCache } from "@/hooks/useQuizCache";
 import { useToast } from "@/hooks/use-toast";
 
@@ -34,6 +35,7 @@ export interface QuizResult {
 }
 
 const Index = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<'user' | 'scanner' | 'quiz' | 'results'>('user');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
@@ -439,13 +441,24 @@ const Index = () => {
 
             <QrCodeGenerator questions={availableQuestions} />
             
-            <Button 
-              variant="outline" 
-              onClick={() => setCurrentStep('user')}
-              className="w-full"
-            >
-              Sair
-            </Button>
+            <div className="grid grid-cols-2 gap-3">
+              <Button 
+                variant="secondary" 
+                onClick={() => navigate('/history')}
+                className="w-full"
+              >
+                <History className="h-4 w-4 mr-2" />
+                Histórico
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                onClick={() => setCurrentStep('user')}
+                className="w-full"
+              >
+                Sair
+              </Button>
+            </div>
           </div>
         )}
 
@@ -463,12 +476,20 @@ const Index = () => {
               totalScore={totalScore}
               userName={userData?.name || ''}
             />
-            <div className="flex gap-2">
+            <div className="grid grid-cols-3 gap-2">
+              <Button 
+                variant="secondary" 
+                onClick={() => navigate('/history')}
+                className="w-full"
+              >
+                <History className="h-4 w-4 mr-2" />
+                Histórico
+              </Button>
               <Button onClick={resetQuiz} variant="outline" className="flex-1">
-                Escanear Novo QR
+                Novo QR
               </Button>
               <Button onClick={resetApp} className="flex-1">
-                Novo Usuário
+                Sair
               </Button>
             </div>
           </div>
