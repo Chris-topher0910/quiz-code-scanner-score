@@ -35,8 +35,9 @@ Jonas Luiz (@jonasluis) que tem como intuito premiar com computadores os alunos 
 
 DESENVOLVER INTERFACE
 
-
+_____________________________________________________________________________________________________________________________________________________________________
 CAMPEONATO INFORMATICA
+
 A proposta dessa prova consiste em gerar trabalho em equipe para que através do empenho coletivo os participantes do grupo consigam a oportunidade de disputar os 10 computadores.
 *uma oportunidade só existe se você estiver preparado para ela, porem só é uma oportunidade caso a condição seja dada a alguém pois ninguem consegue nada sozinho*
 
