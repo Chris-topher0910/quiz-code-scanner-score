@@ -18,25 +18,6 @@ a se integrarem no mercado de trabalho, e para isso, o projeto EIC (Escola de In
 INPAR (Instituto Presbiteriâno Álvaro Reis) sediará o projeto idealizado por Christopher Wallace de Sá Diniz (@chris-topher0910) com parceria de
 Jonas Luiz (@jonasluis) que tem como intuito premiar com computadores os alunos destaque do projeto de informatica EIC.
 
-CAMPEONATO INFORMATICA
-
-OFICINAS DO CAMPEONATO
-DESCRIPTOGRAFANDO A PISTA DE MONTAGEM DE PCs (eliminatória - grupo)
-A proposta dessa prova consiste em gerar trabalho em equipe para que através do empenho coletivo os participantes do grupo consigam a oportunidade de disputar os 10 computadores.
-*uma oportunidade só existe se você estiver preparado para ela, porem só é uma oportunidade caso a condição seja dada a alguém. ninguem consegue nada sozinho*
-
-Os grupos serão separados em áreas, de forma restrita, para que não possam ter a oportunidade de se organizarem visando favorecimento. Para isso, quem decidirá os alunos de cada grupo será eu, de acordo com o desempenho ao longo do ano relacionado as aulas, além disso, será integrado ao aplicativo um dump com o registro de e-mail de todos os participantes, para que os grupos não possam ser mudados.
-
-Após isso, será dado o início a prova, após os esclarecimentos das regras e condições:A prova será dividida em duas etapas, a primeira, será uma caça a pistas de informações para descriptografar um código, o qual revelará a localização da chave de uma sala onde estará alguns computadores a serem desmontados e montados pelos participantes que conseguirem desvendar o código criptografado.
-
-Essa etapa é em grupo, e determinará os participantes do campeonato, assim, eliminando os demais grupos participantes
-
-PISTA DE MONTAGEM DE PC'S (eliminatória - individual)
-
-PISTA DE ORIENTAÇÃO DIGITAL (pontuação - individual)
-
-CAÇA BANDEIRA DIGITAL (eliminatória - individual)
-
 -APLICATIVO LEITOR DE QR CODE
 
 -FUNCIONALIDADES:
@@ -53,6 +34,43 @@ CAÇA BANDEIRA DIGITAL (eliminatória - individual)
   [] Fazer um ranking com os alunos cadastrados no banco de dados que fizerem o login no aplicativo
 
 DESENVOLVER INTERFACE
+
+
+CAMPEONATO INFORMATICA
+A proposta dessa prova consiste em gerar trabalho em equipe para que através do empenho coletivo os participantes do grupo consigam a oportunidade de disputar os 10 computadores.
+*uma oportunidade só existe se você estiver preparado para ela, porem só é uma oportunidade caso a condição seja dada a alguém pois ninguem consegue nada sozinho*
+
+Os grupos de alunos serão separados de acordo com o desempenho ao longo do ano relacionado as aulas, além disso, será integrado ao aplicativo um dump com o registro de e-mail de todos os participantes, para que os grupos não possam ser mudados.
+
+Após isso, será dado o início a prova, após os esclarecimentos das regras e condições.
+
+OFICINAS DO CAMPEONATO
+
+DESCRIPTOGRAFANDO A PISTA DE MONTAGEM DE PCs (eliminatória - grupo)
+A prova será dividida em duas etapas, a primeira, será uma caça a pistas de informações para descriptografar um código, o qual revelará a localização da chave de uma sala onde estará alguns computadores a serem desmontados e montados pelos participantes que conseguirem desvendar o código criptografado.
+Essa etapa é em grupo, e determinará os participantes das provas seguintes, assim, eliminando os demais grupos participantes.
+
+
+PISTA DE MONTAGEM DE PC'S (pontuação - individual)
+A prova consiste em uma disputa de montagem de PCs.
+Cada participante terá que montar os PCs dentro de um tempo limite
+porém a pontuação da prova será definida por tempo de montagem e peças colocadas de maneira correta.
+Cada peça correta adiciona 1 ponto para o participante, mas o ponto extra para quem terminar a prova primeiro
+São 5 componentes no total (PLM, CPU, RAM, HD e Fonte) cada um valendo 1 ponto.
+Mais o cabeamento (PLM, CPU, HD energia e HD SATA) cada um valendo 1 ponto.
+A pontuação pelo tempo recorde são 2 pontos.
+Após montar os PCs, os participantes teram que desmontar os PCs para que os participantes seguintes possam montálos.
+Isso também implicará em pontuação, quem desmontar de maneira mais rápida e organizada ganhará 2 pontos
+
+PISTA DE ORIENTAÇÃO DIGITAL (pontuação - individual)
+Essa pista será realizada com o uso do aplicativo de leitura de QR Code.
+Basicamente, será uma pista de orientação, com um mapa para localizar as perguntas da prova.
+Cada pergunta está impressa em um QR Code, sendo um total de 20 perguntas, cada uma valendo 1 ponto.
+O participante terá um tempo de 30 min para localizar e responder as perguntas.
+
+CAÇA BANDEIRA DIGITAL (Desempate - individual)
+Caso haja empate, será feito uma prova de Caça bandeiras digital, onde os participantes teram que localizar uma bandeira escondida em uma URL.
+
 
 **URL**: https://lovable.dev/projects/6c3652e4-c87e-4ef6-b619-531ef9c605ad
 
